@@ -1,0 +1,61 @@
+#loginPage {
+    background-color: #FFFFFF;
+}
+
+#login-container {
+    text-align: left;
+    border-radius: 30px;
+    padding: 20px;
+    width: 300px;
+    margin: 10vh auto auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+#authHeader {
+    font-weight: normal;
+}
+
+#auth-form {
+    margin-top: 40px;
+}
+
+.auth-Login {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+span {
+    font-size: x-large;
+}
+
+.auth-input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #c8ffc4;
+}
+
+.auth-input:focus {
+    border: none;
+    outline: none;
+}
+
+#submit-button {
+    width: 50%;
+    border-radius: 15px;
+    border: none;
+    padding: 5px;
+    background-color: #A8FDA0;
+    font-size: x-large;
+    cursor: pointer;
+    margin: auto;
+    display: block;
+}
+
+#submit-button:hover {
+    background-color: #aef8a7;
+}

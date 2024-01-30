@@ -1,0 +1,20 @@
+#header {
+    background-color: #A8FDA0;
+    height: 116px;
+    width: 100%;
+    text-align: left;
+    line-height: 116px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#header h1 {
+    padding-left: 122px;
+    padding-top: 26px;
+    margin: 0;
+    font-family: Playfair Display, serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
