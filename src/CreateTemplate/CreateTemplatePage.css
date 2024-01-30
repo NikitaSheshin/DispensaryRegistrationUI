@@ -1,0 +1,82 @@
+#page-content {
+    margin: 50px 0 0 122px;
+}
+
+#page-header {
+    font-family: "Playfair Display", serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.field-name-span {
+    color: #000;
+    font-family: "Playfair Display", serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input-field {
+    font-family: "Playfair Display", serif;
+    border-radius: 15px;
+    background: rgba(217, 217, 217, 0.40);
+    border-color: rgba(217, 217, 217, 0.40);
+    width: 489px;
+    height: 35px;
+    flex-shrink: 0;
+    padding-left: 10px;
+    font-size: 33px;
+}
+
+.input-field::placeholder {
+    color: rgba(0, 0, 0, 0.50);
+    font-family: "Playfair Display", serif;
+    font-size: 33px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input-field:focus {
+    outline: none;
+}
+
+.input-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 100px;
+}
+
+.disease-label {
+    display: inline-block;
+    width: auto;
+    height: 35px;
+    font-size: 31px;
+    border-radius: 15px;
+    background: #DAEDD8;
+    border-color: #DAEDD8;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+
+    font-family: "Playfair Display", serif;
+}
+
+.center-container {
+    display: flex;
+    align-items: center;
+}
+
+.delete-disease-image {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
+
+.delete-disease-image:hover {
+    cursor: pointer;
+}

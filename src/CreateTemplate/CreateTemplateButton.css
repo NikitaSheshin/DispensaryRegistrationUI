@@ -1,0 +1,18 @@
+#floating-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 100px;
+    margin-bottom: 45px;
+}
+
+#create-button {
+    padding: 10px 20px;
+    background-color: #A8FDA0;
+    color: black;
+    border: none;
+    font-size: x-large;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: Playfair Display, serif;
+}

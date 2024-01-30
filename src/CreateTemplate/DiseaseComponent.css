@@ -1,0 +1,15 @@
+.select-field {
+    font-family: "Playfair Display", serif;
+
+    width: 505px;
+    height: 35px;
+    font-size: 31px;
+    border-radius: 15px;
+    background: #DAEDD8;
+    border-color: #DAEDD8;
+    padding-left: 10px;
+}
+
+.select-field:focus {
+    outline: none;
+}
