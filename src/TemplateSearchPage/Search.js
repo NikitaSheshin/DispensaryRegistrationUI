@@ -24,7 +24,7 @@ const Search = ( {getTemplates} ) => {
                     src={icon}
                     alt="Иконка поиска"
                     style={{}}
-                    onClick={getTemplates}
+                    onClick={() => getTemplates(1)}
                 />
             </div>
         </div>

@@ -1,13 +1,22 @@
 import React from 'react';
 import './SearchingResult.css';
+import {useNavigate} from "react-router-dom";
 
-const SearchingResult = ({templates}) => {
+const SearchingResult = ({templates, userData}) => {
+    const navigate = useNavigate();
+    const navigateToTemplatePage = async (id) => {
+        console.log(userData);
+        navigate('/templates/' + id.toString(), { state: { userData: userData } });
+    };
+
     return (
        <div id="searching-result">
            <p id="componentHeader">Результаты поиска</p>
            <ul>
                {templates.map(template => (
-                   <li key={template.id}>{template.template_name + ", " + template.observation_period + " лет"}</li>
+                   <li key={template.id} onClick={() => navigateToTemplatePage(template.id)}>
+                        {template.template_name + ", " + template.observation_period + " лет"}
+                   </li>
                ))}
            </ul>
        </div>

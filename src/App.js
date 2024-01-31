@@ -4,6 +4,7 @@ import LoginPage from "./Login/LoginPage";
 import Home from "./Home";
 import TemplateSearch from "./TemplateSearchPage/TemplateSearch";
 import CreateTemplatePage from "./CreateTemplate/CreateTemplatePage";
+import TemplateDetailsPage from "./TemplatePage/TemplateDetailsPage";
 
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/templateSearch" element={<TemplateSearch/>}/>
                 <Route path="/createTemplate" element={<CreateTemplatePage/>}/>
+                <Route path="/templates/:id" element={<TemplateDetailsPage/>}/>
             </Routes>
         </Router>
     );

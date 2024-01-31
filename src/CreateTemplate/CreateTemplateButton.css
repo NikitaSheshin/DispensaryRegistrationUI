@@ -6,8 +6,9 @@
     margin-bottom: 45px;
 }
 
-#create-button {
+.create-button {
     padding: 10px 20px;
+    margin-left: 15px;
     background-color: #A8FDA0;
     color: black;
     border: none;

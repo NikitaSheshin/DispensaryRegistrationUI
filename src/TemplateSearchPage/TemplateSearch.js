@@ -17,8 +17,9 @@ const TemplateSearch = () => {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getTemplates = async() => {
-        const url = "http://localhost:8080/templates?doctor_id=" +  userData.id;
+    const getTemplates = async(pageNumber) => {
+        const url = "http://localhost:8080/templates?doctor_id=" +  userData.id +
+            "&page_number=" + pageNumber;
 
         try {
             const response = await fetch(url, {
@@ -37,7 +38,6 @@ const TemplateSearch = () => {
             const fetchedTemplates = await response.json();
             setTemplates(fetchedTemplates);
             setLoading(false);
-            console.log(fetchedTemplates[0]);
         } catch (error) {
             console.error('Произошла ошибка:', error);
         }
@@ -49,8 +49,6 @@ const TemplateSearch = () => {
         navigate('/createTemplate', { state: { userData: userData } });
     };
 
-
-
     return (
         <div id="search-page">
             <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
@@ -60,7 +58,7 @@ const TemplateSearch = () => {
             {loading ? (
                 <p id="result-placeholder">Результаты поиска</p>
             ) : (
-                <SearchingResult templates={templates}></SearchingResult>
+                <SearchingResult templates={templates} userData={userData}></SearchingResult>
             )}
 
             <CreateTemplateButton onClick={redirectToCreatePage}></CreateTemplateButton>
