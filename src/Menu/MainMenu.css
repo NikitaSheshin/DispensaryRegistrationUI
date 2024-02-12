@@ -24,6 +24,10 @@
     margin: 0 10px;
 }
 
+.menu-item:focus {
+    cursor: pointer;
+}
+
 .menu-wrapper {
     background-color: #C2E1BE;
     max-width: 1151px;

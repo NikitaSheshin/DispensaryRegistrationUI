@@ -2,30 +2,14 @@ import React, {useEffect, useState} from 'react';
 import Header from "../Header";
 import MainMenu from "../Menu/MainMenu";
 import {useParams} from "react-router";
-import {useLocation, useNavigate} from "react-router-dom";
-import './TemplateDetailsPage.css';
-import DiseaseShowLabel from "./DiseasesShowLabel";
+import {useLocation} from "react-router-dom";
+import DiseaseShowLabel from "../DiseaseComponents/DiseaseShowLabel/DiseasesShowLabel";
+import EditTemplateButton from "./Buttons/EditTemplateButton";
+import DeleteTemplateButton from "./Buttons/DeleteTemplateButton";
+import {getDoctorName} from '../Doctor/DoctorsScripts';
+import {getTemplateFromServer} from '../Template/TemplatesScripts'
 
 let userData;
-
-const getTemplate = async (templateId, doctorId) => {
-    try {
-        const paramName = 'doctor_id'
-        const url = `http://localhost:8080/templates/${templateId}?${paramName}=${doctorId}`;
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            },
-        });
-
-        return await response.json();
-    }
-    catch (error)
-    {
-        return {}
-    }
-};
 
 const TemplateDetailsPage = () => {
     const location = useLocation();
@@ -37,38 +21,23 @@ const TemplateDetailsPage = () => {
 
     useEffect(() => {
         const fetchDiseases = async () => {
-            const data = await getTemplate(id, userData.id);
-            setTemplate(data);
-            setDiseases(data.diseases)
+            return await getTemplateFromServer(id, userData.id);
         };
 
-        fetchDiseases();
+        fetchDiseases().then(
+            data => {
+                setTemplate(data); setDiseases(data.diseases)
+            }
+        );
     }, [id]);
 
-    let doctorName = userData.lastName + " " + userData.firstName[0] +
-        ". " + userData.patronymic[0] + ".";
 
-    const navigate = useNavigate();
-    function deleteTemplate(templateId) {
-        try {
-            const url = `http://localhost:8080/templates/${templateId}`;
-            fetch(url, {
-                method: 'DELETE'
-            }).then(() => console.log("Удалил"));
-
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-
-            navigate('/templateSearch', { state: { userData: userData } });
-        }
-        catch (error)
-        {
-        }
-    }
+    let doctorName = getDoctorName(userData);
 
     return (
         <div id="template-page">
             <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu></MainMenu>
+            <MainMenu userData={userData}></MainMenu>
 
             <div id="page-content">
                 <h1 id="page-header">Создание шаблона</h1>
@@ -83,7 +52,6 @@ const TemplateDetailsPage = () => {
 
                 <span className="field-name-span">Заболевания</span>
                 <br/>
-
 
                 {
                     diseases.map((disease) => (
@@ -112,8 +80,8 @@ const TemplateDetailsPage = () => {
                 </label>
 
                 <div id="floating-button">
-                    <button className="create-button">Изменить</button>
-                    <button className="create-button" onClick={() => deleteTemplate(id)}>Удалить</button>
+                    <EditTemplateButton template={template}></EditTemplateButton>
+                    <DeleteTemplateButton/>
                 </div>
             </div>
         </div>

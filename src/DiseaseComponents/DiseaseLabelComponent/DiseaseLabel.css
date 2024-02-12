@@ -1,0 +1,25 @@
+.disease-label {
+    display: inline-block;
+    width: auto;
+    height: 35px;
+    font-size: 31px;
+    border-radius: 15px;
+    background: #DAEDD8;
+    border-color: #DAEDD8;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+
+    font-family: "Playfair Display", serif;
+}
+
+.center-container {
+    display: flex;
+    align-items: center;
+}
+
+.delete-disease-image {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}

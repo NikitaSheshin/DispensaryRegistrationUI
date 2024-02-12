@@ -1,0 +1,11 @@
+.create-button {
+    padding: 10px 20px;
+    margin-left: 15px;
+    background-color: #A8FDA0;
+    color: black;
+    border: none;
+    font-size: x-large;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: Playfair Display, serif;
+}

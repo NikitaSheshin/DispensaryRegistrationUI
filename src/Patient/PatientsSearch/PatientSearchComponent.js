@@ -1,31 +1,24 @@
 import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import Header from "../Header";
-import MainMenu from "../Menu/MainMenu";
-import Search from "./Search";
-import SearchingResult from "./SearchingResult";
-import CreateTemplateButton from "../CreateTemplatePage/CreateTemplateButton";
-import './TemplateSearch.css';
-import {getDoctorName} from "../Doctor/DoctorsScripts";
+import '../../TemplateSearchPage/TemplateSearch.css';
+import Header from "../../Header";
+import MainMenu from "../../Menu/MainMenu";
+import PatientSearchResult from "./PatientSearchResult";
+import AddPatientButton from "./AddPatientButton";
+import PatientSearchField from "./PatientSearchField";
 
 let userData;
 
-const TemplateSearch = () => {
+const PatientSearchComponent = () => {
     const location = useLocation();
     userData = location.state && location.state.userData;
-    let doctorName = getDoctorName(userData)
+    let doctorName = userData.lastName + " " + userData.firstName[0] + ". " + userData.patronymic[0] + "."
 
-    const [templates, setTemplates] = useState([]);
+    const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
 
-    const getTemplates = async(pageNumber) => {
-        let url = "http://localhost:8080/templates?doctor_id=" +  userData.id +
-            "&page_number=" + pageNumber;
-
-        if(searchQuery !== '') {
-            url += '&request=' + searchQuery;
-        }
+    const getPatients = async(pageNumber) => {
+        const url = "http://localhost:8080/patients";
 
         try {
             const response = await fetch(url, {
@@ -41,8 +34,8 @@ const TemplateSearch = () => {
                 return;
             }
 
-            const fetchedTemplates = await response.json();
-            setTemplates(fetchedTemplates);
+            const fetchedPatients = await response.json();
+            setPatients(fetchedPatients);
             setLoading(false);
         } catch (error) {
             console.error('Произошла ошибка:', error);
@@ -52,24 +45,24 @@ const TemplateSearch = () => {
     const navigate = useNavigate();
 
     const redirectToCreatePage = () => {
-        navigate('/createTemplate', { state: { userData: userData } });
+        navigate('/addPatient', { state: { userData: userData } });
     };
 
     return (
         <div id="search-page">
             <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
             <MainMenu userData={userData}></MainMenu>
-            <Search getTemplates={getTemplates} onChange={setSearchQuery}></Search>
+            <PatientSearchField getPatients={getPatients}></PatientSearchField>
 
             {loading ? (
                 <p id="result-placeholder">Результаты поиска</p>
             ) : (
-                <SearchingResult templates={templates} userData={userData}></SearchingResult>
+                <PatientSearchResult patients={patients} userData={userData}></PatientSearchResult>
             )}
 
-            <CreateTemplateButton onClick={redirectToCreatePage}></CreateTemplateButton>
+            <AddPatientButton onClick={redirectToCreatePage}></AddPatientButton>
         </div>
     );
 };
 
-export default TemplateSearch;
+export default PatientSearchComponent;

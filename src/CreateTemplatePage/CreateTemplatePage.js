@@ -2,30 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import Header from "../Header";
 import './CreateTemplatePage.css';
-import './CreateTemplateButton.css';
-import './DiseaseComponent.css';
-import DiseaseComponent from "./DiseaseComponent";
-import DiseaseLabel from "./DiseaseLabel";
+import DiseaseComponent from "../DiseaseComponents/DiseaseSelectorComponent/DiseaseComponent";
+import DiseaseLabel from "../DiseaseComponents/DiseaseLabelComponent/DiseaseLabel";
 import MainMenu from "../Menu/MainMenu";
-
-const getDiseases = async () => {
-    try {
-        const response = await fetch("http://localhost:8080/diseases", {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            },
-        });
-
-        const data = await response.json();
-        console.log(data);
-        return data;
-    }
-    catch (error)
-    {
-        return {}
-    }
-};
+import {getDiseases} from '../DiseaseComponents/DiseasesScripts';
 
 const CreateTemplatePage = () => {
     const navigate = useNavigate();
@@ -43,13 +23,11 @@ const CreateTemplatePage = () => {
 
     useEffect(() => {
         const fetchDiseases = async () => {
-            const data = await getDiseases();
-            setDiseases(data);
+            return await getDiseases();
         };
 
-        fetchDiseases();
+        fetchDiseases().then(response => setDiseases(response));
     }, []);
-
 
     const location = useLocation();
     let userData = location.state && location.state.userData;
@@ -93,7 +71,7 @@ const CreateTemplatePage = () => {
 
         const url = "http://localhost:8080/templates";
 
-        let uniqueDiseases = [...new Set(selectedDiseasesObjects)];
+        let uniqueDiseases = selectedDiseasesObjects.map(el => el.id);
 
         try {
             await fetch(url, {
@@ -128,7 +106,7 @@ const CreateTemplatePage = () => {
     return (
         <div>
             <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu></MainMenu>
+            <MainMenu userData={userData}></MainMenu>
 
             <div id="page-content">
                 <h1 id="page-header">Создание шаблона</h1>
@@ -156,7 +134,7 @@ const CreateTemplatePage = () => {
                         .filter((disease, index, array) => array.indexOf(disease) === index)
                         .map((uniqueDisease, index) => (
                             <DiseaseLabel
-                                key={uniqueDisease} // Add a unique key to each DiseaseLabel
+                                key={uniqueDisease}
                                 shownValue={uniqueDisease}
                                 deleteDiseaseHandler={() => deleteDiseaseHandler(index)}
                             />
