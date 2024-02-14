@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { useNavigate  } from "react-router-dom";
 import AuthHeader from "./AuthHeader";
 import './LoginPage.css'
+import {AuthContext} from "../App";
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const { setAuth } = useContext(AuthContext);
 
     const handleLogin = async () => {
         const url = "http://localhost:8080/auth";
@@ -34,6 +36,7 @@ const LoginForm = () => {
             setErrorMessage('');
 
             const data = await response.json();
+            setAuth(true);
             navigate('/templateSearch', { state: { userData: data } });
         } catch (error) {
             console.error('Произошла ошибка:', error);
