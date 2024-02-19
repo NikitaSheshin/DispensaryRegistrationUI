@@ -4,11 +4,11 @@ import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../App";
 
 const ExitMenuItem = ({link, label}) => {
-    const {setAuth} = useContext(AuthContext);
+    const {setToken} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleExit = () => {
-        setAuth(false);
+        setToken('');
         navigate("/login");
     }
 

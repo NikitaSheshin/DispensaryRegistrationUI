@@ -10,25 +10,28 @@ import PatientSearchComponent from "./Patient/PatientsSearch/PatientSearchCompon
 import PatientAddComponent from "./Patient/PatientAddComponent/PatientAddComponent";
 import PatientDetailsComponent from "./Patient/PatientDetailsComponent/PatientDetailsComponent";
 
-
 export const AuthContext = createContext({
-    isAuthenticated: false,
-    setAuth: () => { },
+    token: '',
+    setToken: () => { },
 });
 
 export default function App() {
-    const [isAuthenticated, setAuth] = useState(() => {
-        const authState = localStorage.getItem("isAuthenticated");
-        return authState ? JSON.parse(authState) : false;
-    });
+    const [token, setToken] = useState('');
 
     useEffect(() => {
-        localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
-    }, [isAuthenticated]);
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('token', token);
+    }, [token]);
 
     return (
         <Router>
-            <AuthContext.Provider value={{isAuthenticated, setAuth}}>
+            <AuthContext.Provider value={{token, setToken}}>
 
                 <Routes>
                     <Route path="/" exact element={<Home/>}/>
@@ -51,14 +54,57 @@ export default function App() {
     );
 }
 
-const PrivateRoute = () => {
-    const { isAuthenticated } = useContext(AuthContext);
-    const location = useLocation();
+// const PrivateRoute = () => {
+//     const { token } = useContext(AuthContext);
+//     const location = useLocation();
+//
+//     return (
+//         token !== '' ?
+//             <Outlet />
+//             :
+//             <Navigate to="/login" state={{ from: location }} replace />
+//     );
+// }
 
-    return (
-        isAuthenticated === true ?
-            <Outlet />
-            :
-            <Navigate to="/login" state={{ from: location }} replace />
-    );
+const PrivateRoute = () => {
+    const { token } = useContext(AuthContext);
+    const location = useLocation();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const checkUser = async () => {
+            try {
+                if (token) {
+                    const response = await fetch("http://localhost:8080/checkAuth", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body:
+                            JSON.stringify({token})
+                    });
+
+                    const fetchedTemplates = await response.json();
+                    console.log(fetchedTemplates)
+                    setIsAuthenticated(fetchedTemplates.valid);
+                }
+            } catch (error) {
+                console.error('Ошибка при проверке токена:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkUser();
+    }, [token]);
+
+    if (isLoading) {
+        // Если проверка токена еще не завершена, показываем загрузочный индикатор или что-то подобное
+        return <div>Loading...</div>;
+    }
+
+    console.log(isAuthenticated)
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
 }
