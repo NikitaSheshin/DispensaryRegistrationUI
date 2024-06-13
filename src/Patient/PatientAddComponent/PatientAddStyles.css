@@ -6,7 +6,7 @@
     display: flex;
     justify-content: flex-end;
 
-    margin-right: 100px;
+    /*margin-right: 100px;*/
     margin-bottom: 20px;
 }
 
@@ -18,7 +18,25 @@
     font-size: x-large;
     border-radius: 30px;
     cursor: pointer;
-    font-family: Playfair Display, serif;
 
     margin-top: 10px;
+}
+
+.gender-text {
+    font-size: x-large;
+}
+
+.react-dadata__input {
+    font-family: "Playfair Display", serif;
+    border-radius: 15px !important;
+    background: rgba(217, 217, 217, 0.40) !important;
+    border-color: rgba(217, 217, 217, 0.40) !important;
+
+    width: 102% !important;
+    height: 35px !important;
+    padding-left: 10px !important;
+    font-size: x-large !important;
+
+    display: inline !important;
+    padding-right: 0 !important;
 }

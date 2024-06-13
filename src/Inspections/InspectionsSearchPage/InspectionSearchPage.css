@@ -1,0 +1,17 @@
+.download-report-block {
+    margin-left: 100px;
+    margin-bottom: 20px;
+    padding: 5px;
+
+    border-radius: 15px;
+
+    font-size: x-large;
+    width: fit-content;
+
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.download-report-block:hover {
+    cursor: pointer;
+    background-color: #D0EFEF;
+}

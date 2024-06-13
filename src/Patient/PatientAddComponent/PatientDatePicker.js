@@ -12,16 +12,19 @@ const MyDatePicker = ({fieldName, onChange, errorMessage}) => {
 
     return (
         <label>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
             <div className="input-block">
                 <span className="field-name-span">{fieldName}</span>
-                <DatePicker
-                    className="input-field"
-                    selected={selectedDate}
-                    onChange={handleChange}
-                    dateFormat="dd.MM.yyyy"
-                    locale={ru}
-                />
+                <div>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                    <DatePicker
+                        className="input-field"
+                        selected={selectedDate}
+                        onChange={handleChange}
+                        dateFormat="dd.MM.yyyy"
+                        locale={ru}
+                    />
+                </div>
             </div>
         </label>
     );

@@ -11,7 +11,7 @@ const DeleteTemplateButton = ({ template }) => {
     const navigate = useNavigate();
     function deleteTemplate(templateId) {
         try {
-            const url = `http://localhost:8080/templates/${id}`;
+            const url = `http://localhost:8084/templates/${id}`;
             fetch(url, {
                 method: 'DELETE'
             }).then(() => console.log("Удалил"));

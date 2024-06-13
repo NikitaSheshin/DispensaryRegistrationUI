@@ -6,17 +6,21 @@
     font-family: "Playfair Display", serif;
     font-size: 40px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
     line-height: normal;
+    text-align: center;
 }
 
 .field-name-span {
     color: #000;
-    font-family: "Playfair Display", serif;
     font-size: 35px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    text-align: right;
+
+    margin-right: 30px;
 }
 
 .input-field {
@@ -24,11 +28,13 @@
     border-radius: 15px;
     background: rgba(217, 217, 217, 0.40);
     border-color: rgba(217, 217, 217, 0.40);
-    width: 489px;
+
+
+    width: 100%;
     height: 35px;
     flex-shrink: 0;
     padding-left: 10px;
-    font-size: 33px;
+    font-size: x-large;
 }
 
 .input-field::placeholder {
@@ -45,10 +51,15 @@
 }
 
 .input-block {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+
+    align-self: center;
+
+    grid-template-columns: 1fr 1fr;
+
     align-items: center;
-    margin-right: 100px;
+    margin-right: 20px;
+    margin-top: 10px;
 }
 
 .delete-disease-image:hover {

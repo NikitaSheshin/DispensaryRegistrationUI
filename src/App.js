@@ -9,6 +9,11 @@ import EditTemplatePage from "./EditTemplatePage/EditTemplatePage";
 import PatientSearchComponent from "./Patient/PatientsSearch/PatientSearchComponent";
 import PatientAddComponent from "./Patient/PatientAddComponent/PatientAddComponent";
 import PatientDetailsComponent from "./Patient/PatientDetailsComponent/PatientDetailsComponent";
+import SelectTemplatePage from "./Template/SelectTemplatePage/SelectTemplatePage";
+import InspectionSearchPage from "./Inspections/InspectionsSearchPage/InspectionSearchPage";
+import AddVisitComponent from "./Visits/AddVisitComponent";
+import VisitComponent from "./Visits/VisitComponent";
+import TodayReceptionComponent from "./Reception/TodayReceptionComponent";
 
 export const AuthContext = createContext({
     token: '',
@@ -26,19 +31,22 @@ export default function App() {
     }, []);
 
     useEffect(() => {
+        document.title = "Диспансерный учет";
+    }, [])
+
+    useEffect(() => {
         localStorage.setItem('token', token);
     }, [token]);
 
     return (
         <Router>
             <AuthContext.Provider value={{token, setToken}}>
-
                 <Routes>
-                    <Route path="/" exact element={<Home/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
-
+                    <Route path='/selectTemplate/:doctorId' element={<SelectTemplatePage/>}/>
 
                     <Route element={<PrivateRoute/>}>
+                        <Route path="/" exact element={<Home/>}/>
                         <Route path="/templateSearch" element={<TemplateSearch/>}/>
                         <Route path="/createTemplate" element={<CreateTemplatePage/>}/>
                         <Route path="/templates/:id" element={<TemplateDetailsPage/>}/>
@@ -46,6 +54,10 @@ export default function App() {
                         <Route path="/patientSearch" element={<PatientSearchComponent/>}/>
                         <Route path="/addPatient" element={<PatientAddComponent/>}/>
                         <Route path="/patients/:id" element={<PatientDetailsComponent/>}/>
+                        <Route path="/inspectionSearch" element={<InspectionSearchPage/>}/>
+                        <Route path="/visit" element={<AddVisitComponent/>}/>
+                        <Route path="/visits/:id" element={<VisitComponent/>}/>
+                        <Route path="/reception" element={<TodayReceptionComponent/>}/>
                     </Route>
                 </Routes>
 
@@ -76,7 +88,7 @@ const PrivateRoute = () => {
         const checkUser = async () => {
             try {
                 if (token) {
-                    const response = await fetch("http://localhost:8080/checkAuth", {
+                    const response = await fetch("http://localhost:8083/checkAuth", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -97,7 +109,7 @@ const PrivateRoute = () => {
             }
         };
 
-        checkUser();
+        checkUser().then(r => console.log(r));
     }, [token]);
 
     if (isLoading) {

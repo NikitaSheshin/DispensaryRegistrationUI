@@ -3,6 +3,7 @@
 }
 
 #login-container {
+
     text-align: left;
     border-radius: 30px;
     padding: 20px;
@@ -21,7 +22,6 @@
 
 .auth-Login {
     display: block;
-    margin-bottom: 10px;
     text-align: left;
 }
 
@@ -36,7 +36,7 @@ span {
     margin-top: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #c8ffc4;
+    background-color: #D0EFEF;
 }
 
 .auth-input:focus {
@@ -49,13 +49,18 @@ span {
     border-radius: 15px;
     border: none;
     padding: 5px;
-    background-color: #A8FDA0;
+    background-color: #EDFF72;
     font-size: x-large;
     cursor: pointer;
     margin: auto;
     display: block;
 }
 
-#submit-button:hover {
-    background-color: #aef8a7;
+.password-input-container {
+    display: flex;
+}
+
+.password-toggle {
+    vertical-align: center;
+    padding-top: 8px;
 }

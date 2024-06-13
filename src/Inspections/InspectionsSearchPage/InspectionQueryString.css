@@ -1,0 +1,25 @@
+.inspection-search-item {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+
+    color: #0F2028;
+    margin: 0 100px 0 100px;
+}
+
+.header {
+    vertical-align: center;
+    margin-right: 40px;
+}
+
+#input-icon-2 {
+    align-self: center;
+
+    padding-top: 5px;
+    padding-right: 15px;
+    width: 20px;
+    height: 20px;
+}
+
+#input-icon-2:hover {
+    cursor: pointer;
+}

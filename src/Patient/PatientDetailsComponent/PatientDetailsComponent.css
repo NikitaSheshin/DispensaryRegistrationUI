@@ -1,0 +1,171 @@
+.inspection-change {
+    cursor: pointer;
+    color: blue;
+    text-decoration-line: underline;
+}
+
+#page-content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    margin-top: 0;
+    margin-right: 90px;
+}
+
+#page-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.info-block {
+    margin: 10px;
+    background-color: #e8e8fc;
+
+    border-radius: 10px;
+    padding: 15px;
+
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#page {
+    background-color: white;
+    font-family: "Times New Roman", serif;
+}
+
+.disease-id-block {
+    margin-top: 5px;
+}
+
+.patient-name-block {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    margin: 10px;
+    font-size: x-large;
+    background-color: #D0EFEF;
+
+    border-radius: 10px;
+    padding: 15px;
+
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.data-line {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    font-size: x-large;
+    margin-top: 5px;
+}
+
+.line-header {
+    font-weight: bold;
+}
+
+.edit-image:hover {
+    cursor: pointer;
+}
+
+.input-data-field {
+    border-radius: 15px;
+    background: rgba(217, 217, 217, 0.40);
+    border-color: rgba(217, 217, 217, 0.40);
+    padding-left: 10px;
+    font-size: large;
+}
+
+.data-block {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.diseases-header-block {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.textarea-field {
+    width: 99%;
+
+    border-radius: 5px;
+
+    background-color: #ececec;
+    padding: 5px;
+}
+
+.visit-input-block {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.save-visit-button {
+    border-radius: 10px;
+
+    padding: 7px;
+
+    width: fit-content;
+
+    transition: background-color 0.3s, color 0.3s;
+
+    background-color: #DAEDD8;
+}
+
+.save-visit-button:hover {
+    cursor: pointer;
+    border: black solid 1px;
+    background-color: #A8FDA0;
+}
+
+.next-observation-date-block {
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.next-observation-date-field {
+    border-radius: 5px;
+
+    background-color: #ececec;
+
+    font-size: large;
+
+    text-align: center;
+
+    margin-left: 10px;
+}
+
+#prev-inspections {
+    max-height: 500px;
+}
+
+.prev-inspection {
+    font-size: x-large;
+    margin-top: 5px;
+
+    padding: 5px;
+
+    width: fit-content;
+}
+
+.prev-inspection:hover {
+    cursor: pointer;
+    background-color: #b2c5f1;
+
+    border-radius: 10px;
+}
+
+.react-dadata__input {
+    border-radius: 15px !important;
+    background: rgba(217, 217, 217, 0.40) !important;
+    border-color: rgba(217, 217, 217, 0.40) !important;
+    padding-left: 10px !important;
+    font-size: large !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#address-block {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}

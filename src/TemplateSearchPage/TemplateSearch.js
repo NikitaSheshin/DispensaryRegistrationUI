@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Header from "../Header";
-import MainMenu from "../Menu/MainMenu";
 import Search from "./Search";
 import SearchingResult from "./SearchingResult";
-import CreateTemplateButton from "../CreateTemplatePage/CreateTemplateButton";
 import './TemplateSearch.css';
 import {getDoctorName} from "../Doctor/DoctorsScripts";
+import plusIcon from "../resources/plusIcon.png";
 
 let userData;
 
@@ -19,11 +18,11 @@ const TemplateSearch = () => {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const getTemplates = async(pageNumber) => {
-        let url = "http://localhost:8080/templates?doctor_id=" +  userData.id +
+    const getTemplates = async (pageNumber) => {
+        let url = "http://localhost:8084/templates?doctor_id=" + userData.id +
             "&page_number=" + pageNumber;
 
-        if(searchQuery !== '') {
+        if (searchQuery !== '') {
             url += '&request=' + searchQuery;
         }
 
@@ -52,24 +51,32 @@ const TemplateSearch = () => {
     const navigate = useNavigate();
 
     const redirectToCreatePage = () => {
-        navigate('/createTemplate', { state: { userData: userData } });
+        navigate('/createTemplate', {state: {userData: userData}});
     };
 
     return (
         <div id="search-page">
-            <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu userData={userData}></MainMenu>
-            <Search getTemplates={getTemplates} onChange={setSearchQuery}></Search>
+            <Header doctorName={doctorName} doctorSpecialty={userData.specialty} selectedMenuItem="templates"/>
+            <hr/>
 
-            {loading ? (
-                <p id="result-placeholder">Результаты поиска</p>
-            ) : (
-                <SearchingResult templates={templates} userData={userData}></SearchingResult>
-            )}
+            <Search getTemplates={getTemplates} onChange={setSearchQuery}/>
 
-            <CreateTemplateButton onClick={redirectToCreatePage}></CreateTemplateButton>
+            {
+                loading ?
+                    (
+                        <div id="non-search-wrapper">
+                            <div id="not-found-result">
+                                <div id="add-patient-block" onClick={redirectToCreatePage}>
+                                    <img src={plusIcon} alt="Ошибка"/>
+                                    <span>Добавить шаблон</span>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <SearchingResult templates={templates} userData={userData}/>
+                    )}
         </div>
     );
-};
+}
 
 export default TemplateSearch;

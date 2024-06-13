@@ -1,19 +1,19 @@
 .search-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+
     align-items: center;
-    justify-content: space-between;
-    color: black;
-    max-width: 1241px;
-    margin: 0 auto;
+
+    color: #0F2028;
+    margin: 0 auto 0 100px;
 }
 
 #input-field {
-    width: 850px;
+    /*width: 100%;*/
     border-radius: 40px;
     padding-left: 20px;
     font-size: x-large;
-    background-color: #C2E1BE;
-    margin: 0;
+    background-color: #D0EFEF;
     border: none;
 }
 
@@ -22,16 +22,27 @@
 }
 
 #input-block {
-    width: 920px;
+    /*width: 100%;*/
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    vertical-align: center;
+
     border-radius: 40px;
     padding-left: 20px;
-    background-color: #C2E1BE;
+    background-color: #D0EFEF;
+    margin-right: 100px;
+    margin-left: 20px;
+    height: 30px;
 }
 
 #input-icon {
+    padding-top: 5px;
     padding-right: 15px;
     width: 20px;
     height: 20px;
+
+    align-content: center;
 }
 
 #input-icon:hover {

@@ -1,3 +1,7 @@
 #template-page {
     margin: 0 auto;
 }
+
+.line-value {
+    text-align: right;
+}

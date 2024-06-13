@@ -1,33 +1,27 @@
 #header {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #A8FDA0;
-    color: black;
+    color: #0F2028;
 }
 
 #header h1 {
     margin: 0;
-    font-family: Playfair Display, serif;
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    height: 90px;
 }
 
 #header h2 {
     font-size: 30px;
-    margin-bottom: 0;
+    margin: 0;
     height: 30px;
     font-weight: normal;
 }
 
 #header h3 {
-    font-size: 20px;
     margin: 0;
-    height: 10px;
     font-weight: normal;
 }
 
@@ -35,8 +29,26 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    padding-right: 30px;
-    height: 190px;
+    padding-right: 100px;
     align-items: flex-end;
+}
 
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu-item {
+    display: inline-block;
+    margin: 0 100px;
+    font-size: x-large;
+}
+
+.menu-item:hover {
+    cursor: pointer;
+}
+
+.menu-item.selected {
+    font-weight: bold;
 }

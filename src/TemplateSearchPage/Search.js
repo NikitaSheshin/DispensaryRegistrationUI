@@ -16,7 +16,7 @@ const Search = ( {getTemplates, onChange} ) => {
             <div id="input-block">
                 <input id="input-field"
                     type="text"
-                    placeholder="Введите запрос..."
+                    placeholder="Название шаблона"
                     value={searchQuery}
                     onChange={handleSearchChange}
                 />

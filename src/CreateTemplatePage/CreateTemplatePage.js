@@ -4,12 +4,11 @@ import Header from "../Header";
 import './CreateTemplatePage.css';
 import DiseaseComponent from "../DiseaseComponents/DiseaseSelectorComponent/DiseaseComponent";
 import DiseaseLabel from "../DiseaseComponents/DiseaseLabelComponent/DiseaseLabel";
-import MainMenu from "../Menu/MainMenu";
 import {getDiseases} from '../DiseaseComponents/DiseasesScripts';
 
 const CreateTemplatePage = () => {
     const navigate = useNavigate();
-    const deleteDiseaseHandler =  (indexOfDisease) => {
+    const deleteDiseaseHandler = (indexOfDisease) => {
         const newSelectedDiseases = [...selectedDiseases];
         newSelectedDiseases.splice(indexOfDisease, 1);
         setSelectedDiseases(newSelectedDiseases);
@@ -44,34 +43,36 @@ const CreateTemplatePage = () => {
     const addTemplate = async () => {
         let f = true;
 
-        if(templateName === '') {
+        if (templateName === '') {
             setNameErrorMessage('Не указано имя шаблона');
             f = false;
         } else {
             setNameErrorMessage('');
         }
 
-        if(observationPeriod === '') {
+        if (observationPeriod === '') {
             setObservationPeriodErrorMessage('Не указана продолжительность наблюдения');
             f = false;
         } else {
             setObservationPeriodErrorMessage('');
         }
 
-        if(selectedDiseases.length === 0) {
+        if (selectedDiseases.length === 0) {
             setDiseasesErrorMessage('Не выбрано ни одно заболевание');
             f = false;
         } else {
             setDiseasesErrorMessage('');
         }
 
-        if(!f) {
+        if (!f) {
             return;
         }
 
-        const url = "http://localhost:8080/templates";
+        const url = "http://localhost:8084/templates";
 
         let uniqueDiseases = selectedDiseasesObjects.map(el => el.id);
+
+        console.log('я тут2')
 
         try {
             await fetch(url, {
@@ -91,7 +92,7 @@ const CreateTemplatePage = () => {
 
         }
 
-        navigate('/templateSearch', { state: { userData: userData } });
+        navigate('/templateSearch', {state: {userData: userData}});
     };
 
     const [selectedDiseases, setSelectedDiseases] = useState([]);
@@ -100,47 +101,54 @@ const CreateTemplatePage = () => {
     const diseaseChange = (selectedDisease) => {
         setSelectedDiseases([...selectedDiseases, selectedDisease]);
         setSelectedDiseasesObjects([...selectedDiseasesObjects,
-            diseases.find(d => d.disease_name === selectedDisease)]);
+            diseases.find(d => d.icd_id === selectedDisease)]);
     };
 
     return (
         <div>
-            <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu userData={userData}></MainMenu>
+            <Header
+                doctorName={doctorName}
+                doctorSpecialty={userData.specialty}
+                selectedMenuItem="templates"
+            />
+            <hr/>
 
             <div id="page-content">
                 <h1 id="page-header">Создание шаблона</h1>
 
                 <form>
-                    <label >
-                        {nameErrorMessage && <p style={{ color: 'red' }}>{nameErrorMessage}</p>}
+                    <div>
+                        {nameErrorMessage && <p style={{color: 'red'}}>{nameErrorMessage}</p>}
                         <div className="input-block">
-                        <span className="field-name-span">Название</span>
-                        <input
-                            placeholder="Введите значение"
-                            className="input-field"
-                            type="text"
-                            value={templateName}
-                            onChange={(e) => setTemplateName(e.target.value)}/>
+                            <span className="field-name-span">Название</span>
+                            <input
+                                placeholder="Введите значение"
+                                className="input-field"
+                                type="text"
+                                value={templateName}
+                                onChange={(e) => setTemplateName(e.target.value)}/>
                         </div>
-                    </label>
+                    </div>
                     <br/>
 
-                    {diseasesErrorMessage && <p style={{ color: 'red' }}>{diseasesErrorMessage}</p>}
-                    <span className="field-name-span">Заболевания</span>
-                    <br/>
+                    <div className="input-block">
+                        <span className="field-name-span">Заболевания</span>
 
-                    {selectedDiseases
-                        .filter((disease, index, array) => array.indexOf(disease) === index)
-                        .map((uniqueDisease, index) => (
-                            <DiseaseLabel
-                                key={uniqueDisease}
-                                shownValue={uniqueDisease}
-                                deleteDiseaseHandler={() => deleteDiseaseHandler(index)}
-                            />
-                        ))
-                    }
-                    <DiseaseComponent onChange={diseaseChange} diseases={diseases}/>
+                        <div>
+                            {diseasesErrorMessage && <p style={{color: 'red'}}>{diseasesErrorMessage}</p>}
+                            {selectedDiseases
+                                .filter((disease, index, array) => array.indexOf(disease) === index)
+                                .map((uniqueDisease, index) => (
+                                    <DiseaseLabel
+                                        key={uniqueDisease}
+                                        shownValue={uniqueDisease}
+                                        deleteDiseaseHandler={() => deleteDiseaseHandler(index)}
+                                    />
+                                ))
+                            }
+                            <DiseaseComponent onChange={diseaseChange} diseases={diseases}/>
+                        </div>
+                    </div>
 
                     <br/>
                     <label className="input-block">
@@ -158,27 +166,20 @@ const CreateTemplatePage = () => {
                         </select>
                     </label>
                     <br/>
-                    <label >
-                        {observationPeriodErrorMessage && <p style={{ color: 'red' }}>{observationPeriodErrorMessage}</p>}
-                        <div className="input-block">
-                        <span className="field-name-span">Задайте продолжительность наблюдения</span>
-                        <input
-                            placeholder="Введите значение"
-                            className="input-field"
-                            type="text"
-                            value={observationPeriod}
-                            onChange={(e) => setObservationPeriod(e.target.value)}/>
-                        </div>
-                    </label>
-                    <br/>
                     <label>
-                        <span className="field-name-span">Выберите необходимые исслодования</span>
-                        <br/>
-                        <select id="fruits" name="fruits">
-                            <option value="apple">Яблоко</option>
-                            <option value="banana">Банан</option>
-                            <option value="orange">Апельсин</option>
-                        </select>
+
+                        <div className="input-block">
+                            <span className="field-name-span">Задайте продолжительность наблюдения</span>
+                            <div>
+                            {observationPeriodErrorMessage && <p style={{color: 'red'}}>{observationPeriodErrorMessage}</p>}
+                            <input
+                                placeholder="Введите значение"
+                                className="input-field"
+                                type="text"
+                                value={observationPeriod}
+                                onChange={(e) => setObservationPeriod(e.target.value)}/>
+                            </div>
+                        </div>
                     </label>
                 </form>
 

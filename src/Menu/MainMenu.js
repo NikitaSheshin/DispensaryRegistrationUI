@@ -13,6 +13,10 @@ const MainMenu = ({userData}) => {
         navigate('/patientSearch', { state: { userData: userData } });
     }
 
+    const toInspectionSearchPage = () => {
+        navigate('/inspectionSearch', { state: { userData: userData } });
+    }
+
     return (
         <div className="menu-wrapper">
             <ul className="menu-container">
@@ -20,7 +24,7 @@ const MainMenu = ({userData}) => {
                     <ul className="menu-container">
                         <li className="menu-item" onClick={toTemplateSearchPage}>Шаблоны</li>
                         <li className="menu-item" onClick={toPatientSearchPage}>Пациенты</li>
-                        <li className="menu-item" onClick={toTemplateSearchPage}>Осмотры</li>
+                        <li className="menu-item" onClick={toInspectionSearchPage}>Осмотры</li>
                         {/*<MenuItem link="/about" label="Пациенты" onClick={() => this.handleMenuItemClick("Пациенты")}/>*/}
                         {/*<MenuItem link="/contact" label="Осмотры" onClick={() => this.handleMenuItemClick("Осмотры")}/>*/}
                     </ul>

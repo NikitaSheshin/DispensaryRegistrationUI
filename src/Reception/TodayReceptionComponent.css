@@ -1,0 +1,49 @@
+.patient-block {
+    background-color: #e8e8fc;
+    /*background-color: #dcdbdb;*/
+
+    margin: 5px 100px;
+    padding: 5px 20px 5px 10px;
+
+    font-size: x-large;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+}
+
+.patient-block:hover {
+    cursor: pointer;
+}
+
+.document-field {
+    font-size: large;
+    font-style: inherit;
+}
+
+#add-patient-block {
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+    padding: 5px;
+
+    width: fit-content;
+
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#add-patient-block:hover {
+    cursor: pointer;
+    background-color: #D0EFEF;
+}
+
+#not-found-result {
+    margin-left: 100px !important;
+}
+
+#not-found-text {
+    font-size: larger;
+    margin-bottom: 10px;
+}

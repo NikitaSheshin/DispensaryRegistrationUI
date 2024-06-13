@@ -11,11 +11,11 @@ const PatientSearchField = ( {getPatients} ) => {
 
     return (
         <div className="search-item">
-            <h1>Поиск пациента</h1>
+            <h1>Поиск</h1>
             <div id="input-block">
                 <input id="input-field"
                        type="text"
-                       placeholder="Введите запрос..."
+                       placeholder="СНИЛС, номер полиса ОМС, паспортные данные или ФИО пациента"
                        value={searchQuery}
                        onChange={handleSearchChange}
                 />
@@ -24,7 +24,7 @@ const PatientSearchField = ( {getPatients} ) => {
                     src={icon}
                     alt="Иконка поиска"
                     style={{}}
-                    onClick={() => getPatients(1)}
+                    onClick={() => getPatients(searchQuery)}
                 />
             </div>
         </div>

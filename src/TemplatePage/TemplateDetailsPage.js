@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Header from "../Header";
-import MainMenu from "../Menu/MainMenu";
 import {useParams} from "react-router";
-import {useLocation} from "react-router-dom";
-import DiseaseShowLabel from "../DiseaseComponents/DiseaseShowLabel/DiseasesShowLabel";
-import EditTemplateButton from "./Buttons/EditTemplateButton";
-import DeleteTemplateButton from "./Buttons/DeleteTemplateButton";
+import {useLocation, useNavigate} from "react-router-dom";
 import {getDoctorName} from '../Doctor/DoctorsScripts';
 import {getTemplateFromServer} from '../Template/TemplatesScripts'
+import './TemplateDetailsPage.css';
+import MainInfoComponent from "./MainInfoComponent";
+import DiseasesFrame from "../Patient/PatientDetailsComponent/Diseases/DiseasesFrame";
+import delete_icon from '../resources/delete_icon.png'
 
 let userData;
 
@@ -26,62 +26,62 @@ const TemplateDetailsPage = () => {
 
         fetchDiseases().then(
             data => {
-                setTemplate(data); setDiseases(data.diseases)
+                setTemplate(data);
+                setDiseases(data.diseases)
             }
         );
     }, [id]);
 
-
     let doctorName = getDoctorName(userData);
+
+    const navigate = useNavigate();
+    function deleteTemplate() {
+
+        try {
+            const url = `http://localhost:8084/templates/${id}`;
+            fetch(url, {
+                method: 'DELETE'
+            }).then(() => console.log("Удалил"));
+
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            navigate('/templateSearch', { state: { userData: userData } });
+        }
+        catch (error)
+        {
+        }
+    }
 
     return (
         <div id="template-page">
-            <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu userData={userData}></MainMenu>
+            <Header
+                doctorName={doctorName}
+                doctorSpecialty={userData.specialty}
+                selectedMenuItem="templates"
+            />
+            <hr/>
 
             <div id="page-content">
-                <h1 id="page-header">Создание шаблона</h1>
+                <h1 id="page-header">Шаблон</h1>
 
-                <label>
-                    <div className="input-block">
-                        <span className="field-name-span">Название</span>
-                        <span>{template.template_name} </span>
-                    </div>
-                </label>
-                <br/>
+                <div id="page-grid">
+                    <MainInfoComponent template={template}/>
 
-                <span className="field-name-span">Заболевания</span>
-                <br/>
+                    <DiseasesFrame patient={template}
+                                   patientDiseases={diseases}
+                                   putUrl={"http://localhost:8084/templates/" + template.id}/>
+                </div>
 
-                {
-                    diseases.map((disease) => (
-                        <DiseaseShowLabel
-                            shownValue={disease.disease_name}
-                        />
-                    ))
-                }
-
-                <br/>
-                <label className="input-block">
-                    <span className="field-name-span">Периодичность осмотров</span>
-                    <span>{template.inspections_frequency} {getInspectionsText(template.inspections_frequency)}</span>
-                </label>
-                <br/>
-                <label>
-                    <div className="input-block">
-                        <span className="field-name-span">Продолжительность наблюдения</span>
-                        <span>{template.observation_period} {getObservationText(template.observation_period)}</span>
-                    </div>
-                </label>
-                <br/>
-                <label>
-                    <span className="field-name-span">Исслодования</span>
-                    <br/>
-                </label>
+                {/*<label>*/}
+                {/*    <span className="field-name-span">Исследования</span>*/}
+                {/*</label>*/}
 
                 <div id="floating-button">
-                    <EditTemplateButton template={template}></EditTemplateButton>
-                    <DeleteTemplateButton/>
+                    <div id="not-found-result">
+                        <div id="add-patient-block" onClick={deleteTemplate}>
+                            <span>Удалить</span>
+                            <img src={delete_icon} alt="Ошибка"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,38 +90,4 @@ const TemplateDetailsPage = () => {
 
 export default TemplateDetailsPage;
 
-function getInspectionsText(value) {
-    let mod100 = value % 100;
-    let mod10 = value % 10;
 
-    let res;
-
-    if ((mod100 >= 11 && mod100 <= 14) ||
-        (mod10 >= 5 && mod10 <= 9)) {
-        res = "раз";
-    }
-    else if (mod10 >= 2 && mod10 <= 4) {
-        res = "раза";
-    }
-    else {
-        res = "раз";
-    }
-
-    return res + ' в год';
-}
-
-function getObservationText(value) {
-    let mod100 = value % 100;
-    let mod10 = value % 10;
-
-    if ((mod100 >= 11 && mod100 <= 14) ||
-        (mod10 >= 5 && mod10 <= 9)) {
-        return "лет";
-    }
-    else if (mod10 >= 2 && mod10 <= 4) {
-        return "года";
-    }
-    else {
-        return  "год";
-    }
-}

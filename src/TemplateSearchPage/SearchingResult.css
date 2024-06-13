@@ -1,12 +1,55 @@
 #searching-result {
     align-items: center;
-    color: black;
-    max-width: 1241px;
-    margin: 0 auto;
+    color: #0F2028;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 #componentHeader {
-    margin: 0;
+    margin-bottom: 20px;
     font-size: x-large;
     font-weight: bold;
+}
+
+#result-container {
+    font-size: x-large;
+}
+
+#result-table {
+    width: 100%;
+}
+
+.number-table-column {
+    text-align: left;
+}
+
+.name-table-column {
+    width: 30%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.period-table-column {
+    width: 30%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.frequency-table-column {
+    width: 30%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+#not-found {
+    margin: 0 !important;
+}
+
+.table-row {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.table-row:hover {
+    cursor: pointer;
+    background-color: #D0EFEF;
 }

@@ -16,7 +16,7 @@ const DiseaseComponent = ({onChange, diseases}) => {
             value="">
                 <option value="" disabled selected>Выберите из списка</option>
                 {diseases.map((disease, index) => (
-                    <option key={index} value={disease.disease_name}>{disease.disease_name}</option>
+                    <option key={index} value={disease.icd_id}>{disease.icd_id}</option>
                 ))}
             </select>
         </label>

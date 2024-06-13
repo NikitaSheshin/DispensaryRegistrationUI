@@ -1,6 +1,6 @@
 export const getDiseases = async () => {
     try {
-        const response = await fetch("http://localhost:8080/diseases", {
+        const response = await fetch("http://localhost:8085/diseases", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'

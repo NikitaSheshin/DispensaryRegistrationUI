@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import '../../TemplateSearchPage/TemplateSearch.css';
 import Header from "../../Header";
-import MainMenu from "../../Menu/MainMenu";
 import PatientSearchResult from "./PatientSearchResult";
 import AddPatientButton from "./AddPatientButton";
 import PatientSearchField from "./PatientSearchField";
@@ -17,8 +16,8 @@ const PatientSearchComponent = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getPatients = async(pageNumber) => {
-        const url = "http://localhost:8080/patients";
+    const getPatients = async() => {
+        const url = "http://localhost:8086/patients";
 
         try {
             const response = await fetch(url, {
@@ -50,8 +49,9 @@ const PatientSearchComponent = () => {
 
     return (
         <div id="search-page">
-            <Header doctorName={doctorName} doctorSpecialty={userData.specialty}></Header>
-            <MainMenu userData={userData}></MainMenu>
+            <Header doctorName={doctorName} doctorSpecialty={userData.specialty} selectedMenuItem="patients"/>
+            <hr/>
+            {/*<MainMenu userData={userData}></MainMenu>*/}
             <PatientSearchField getPatients={getPatients}></PatientSearchField>
 
             {loading ? (

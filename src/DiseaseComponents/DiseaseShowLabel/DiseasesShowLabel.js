@@ -1,10 +1,10 @@
 import React from 'react';
 import '../DiseaseSelectorComponent/DiseaseComponent.css';
 
-const DiseaseShowLabel = ({shownValue}) => {
+const DiseaseShowLabel = ({shownValue, tooltipText}) => {
 
     return (
-        <span className="disease-label">
+        <span className="disease-label" title={tooltipText}>
             <div className="center-container">
                 <span>{shownValue}</span>
             </div>

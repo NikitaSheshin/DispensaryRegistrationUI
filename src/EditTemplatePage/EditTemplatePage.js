@@ -9,7 +9,7 @@ import '../CreateTemplatePage/CreateTemplateButton.css'
 
 const getDiseases = async () => {
     try {
-        const response = await fetch("http://localhost:8080/diseases", {
+        const response = await fetch("http://localhost:8085/diseases", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -93,7 +93,7 @@ const EditTemplatePage = () => {
             return;
         }
 
-        const url = "http://localhost:8080/templates/" + id;
+        const url = "http://localhost:8083/templates/" + id;
 
         let uniqueDiseases = selectedDiseasesObjects.map(el => el.id);
 

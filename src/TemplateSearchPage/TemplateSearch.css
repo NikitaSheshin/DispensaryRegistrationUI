@@ -2,7 +2,14 @@
     font-size: x-large;
     font-weight: bold;
     align-items: center;
-    color: black;
+    color: #0F2028;
     max-width: 1241px;
-    margin: 0 auto;
+    margin-left: 100px;
+}
+
+#search-page {
+    background-color: #FFFFFF;
+}
+
+#non-search-wrapper {
 }

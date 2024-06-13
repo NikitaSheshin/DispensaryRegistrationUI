@@ -6,17 +6,21 @@ const AddPatientButton = ({ onChange, fieldName, errorMessage }) => {
     };
 
     return (
-        <label>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-            <div className="input-block">
-                <span className="field-name-span">{fieldName}</span>
-                <input
-                    placeholder="Введите значение"
-                    className="input-field"
-                    type="text"
-                    onChange={handleChange}/>
-            </div>
-        </label>
+        <div>
+            <label>
+                <div className="input-block">
+                    <span className="field-name-span">{fieldName}</span>
+                    <div>
+                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
+                        <input
+                            placeholder="Введите значение"
+                            className="input-field"
+                            type="text"
+                            onChange={handleChange}/>
+                    </div>
+                </div>
+            </label>
+        </div>
     );
 };
 
