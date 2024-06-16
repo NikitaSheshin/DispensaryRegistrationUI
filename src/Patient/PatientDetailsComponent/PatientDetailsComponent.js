@@ -168,11 +168,18 @@ const PatientDetailsComponent = () => {
     };
 
     const [complaints, setComplaints] = useState('');
-    const [lifeAnamnesis, setLifeAnamnesis] = useState('');
-    const [diseaseAnamnesis, setDiseaseAnamnesis] = useState('');
+    const [lifeAnamnesis, setLifeAnamnesis] =
+        useState(visits.length > 0 ? visits[visits.length - 1].lifeAnamnesis : "");
+    const [diseaseAnamnesis, setDiseaseAnamnesis] =
+        useState(visits.length > 0 ? visits[visits.length - 1].diseaseAnamnesis : "");
     const [recomendations, setRecomendations] = useState('');
 
     const completeVisit = async () => {
+        if(!patient.observed) {
+            alert("Пациент не состоит на учете")
+            return;
+        }
+
         const url = "http://localhost:8087/visits";
 
         const currentDate = new Date();
@@ -213,18 +220,36 @@ const PatientDetailsComponent = () => {
 
         }
 
-        template.nextObservationDate = nextObservationDate;
-        navigate('/patients/' + id, {state: {userData: userData}});
+        template.nextObservationDate = formatDate(nextObservationDate);
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        fetchVisits();
     }
+
+    useEffect(() => {
+        fetchVisits();
+    }, [id, userData.id]);
+
+    const fetchVisits = async () => {
+        try {
+            const data = await getAllVisits(userData.id, id);
+            setVisits(data);
+        } catch (error) {
+            console.error("Error fetching visits:", error);
+        }
+    };
 
     function formatDate(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // +1, так как месяцы начинаются с 0
-        const day = String(date.getDate()).padStart(2, '0');
+        try {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // +1, так как месяцы начинаются с 0
+            const day = String(date.getDate()).padStart(2, '0');
 
-        return `${year}-${month}-${day}`;
+            return `${year}-${month}-${day}`;
+        } catch (err) {
+            return new Date().toString();
+        }
     }
-
 
     function getNextObservationDate(n) {
         if (n === undefined) {
